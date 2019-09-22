@@ -13,4 +13,11 @@ class Employee(models.Model):
     last_name = models.CharField(max_length=20, blank=False)
     email = models.EmailField(max_length=100, blank=False, unique=True)
     mobile_number = PhoneField(unique=True, help_text='Contact number')
+
+
+class EmployeeDevices(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.DO_NOTHING, related_name='employee_id')
     device = models.ForeignKey(Device, on_delete=models.DO_NOTHING, related_name='device_id')
+
+    class Meta:
+        unique_together = (('employee', 'device'),)

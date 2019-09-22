@@ -1,5 +1,5 @@
-from employee.models import Employee, Device
-from employee.serializers import EmployeeSerializer, DeviceSerializer
+from employee.models import Employee, Device, EmployeeDevices
+from employee.serializers import EmployeeSerializer, DeviceSerializer, EmployeeDeviceSerializer
 from rest_framework import generics
 
 
@@ -27,3 +27,26 @@ class DeviceUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         device_id = self.kwargs['pk']
         return Device.objects.filter(id=device_id)
+
+
+class EmployeeDeviceListCreate(generics.ListCreateAPIView):
+    serializer_class = EmployeeDeviceSerializer
+    queryset = EmployeeDevices.objects.all()
+
+
+class EmployeeDeviceList(generics.ListAPIView):
+    serializer_class = EmployeeDeviceSerializer
+
+    def get_queryset(self):
+        employee_id = self.kwargs['employee']
+        return EmployeeDevices.objects.filter(employee=employee_id)
+
+
+class EmployeeDeviceDelete(generics.RetrieveDestroyAPIView):
+    serializer_class = EmployeeDeviceSerializer
+    lookup_field = 'employee'
+
+    def get_queryset(self):
+        employee_id = self.kwargs['employee']
+        device_id = self.kwargs['device']
+        return EmployeeDevices.objects.filter(employee=employee_id, device=device_id)
