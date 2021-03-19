@@ -12,7 +12,7 @@ django-environ==0.4.5
 django-filter==2.2.0
 django-heroku==0.3.1
 django-phone-field==1.8.0
-djangorestframework==3.10.2
+djangorestframework==3.11.2
 djangorestframework-simplejwt==4.3.0
 entrypoints==0.3
 fastparquet==0.3.2
